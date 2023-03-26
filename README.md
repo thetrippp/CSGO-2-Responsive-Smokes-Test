@@ -6,7 +6,7 @@ https://www.youtube.com/watch?v=G-jMCypi4oM
 Features:
 - Generating volume of smoke with small units.
 - Smoke units spawn around objects.
-- Smoke disappears if object enters volume, then regenrates(wip).
+- Smoke disappears if object enters volume, then regenerates(wip).
 
 To add:
 - Smoke does not wrap around objects that are farther than a threshold from the center.
