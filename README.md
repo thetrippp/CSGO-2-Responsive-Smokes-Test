@@ -10,10 +10,10 @@ To add:
 - Smoke does not wrap around objects that are farther than a threshold from the center.
 - Smoke forms non-spherical shapes.
 
-Smoke Grenade.
+# Smoke Grenade.
 <img src="https://github.com/thetrippp/CSGO-2-Responsive-Smokes/blob/main/CSGOResponsiveSmokes3.gif">
 
-Smoke Volumes generated around corner.
+# Smoke Volumes generated around corner.
 <p float="left">
 <img src="https://github.com/thetrippp/CSGO-2-Responsive-Smokes/blob/main/CSGOResponsiveSmokes1.gif">
 <img src="https://github.com/thetrippp/CSGO-2-Responsive-Smokes/blob/main/CSGOResponsiveSmokes2.gif">
