@@ -1,6 +1,6 @@
 ## CSGO-2-Responsive-Smokes
 Replicating all the features of the new Responsive Smokes in CSGO 2.
-[![]](https://www.youtube.com/watch?v=jMCypi4oM)
+![](https://www.youtube.com/watch?v=jMCypi4oM)
 https://www.youtube.com/watch?v=G-jMCypi4oM
 
 Features:
