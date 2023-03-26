@@ -17,10 +17,13 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
         public float maxYHeight;
         public float smokeCellSize = 0.35f;
         [HideInInspector] public List<Vector3> smokePositions;
+        [HideInInspector] public List<Vector3> removePositions;
         [HideInInspector] public List<float> distances;
         public float layerTime;
         public int layers;
         public bool isAccelerating;
+        private float intersectTime, regenerateSmokeTime;
+        private int firstgeneratedNum;
 
         [Header("Testing")]
         public GameObject cube;
@@ -29,6 +32,7 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
         Rigidbody rb;
         public GrenadeState grenadeState;
         Vector3 genPos;
+        public float doneGeneratingTime, grenadeLifetime;
 
 
         void Start()
@@ -48,7 +52,7 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
             {
                 grenadeState = GrenadeState.generating;
                 genPos = transform.position;
-                //genPos.y = 0.125f;
+                genPos.y += smokeCellSize * 0.75f;
                 smokePositions.Add(genPos);
                 rb.isKinematic = true;
             }
@@ -59,31 +63,73 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
                 FixSmokeVolume();
                 Sort(ref smokePositions); // Ordering smokes.
                 if(showBoxes) StartCoroutine("DisplaySmoke", layerTime);
+                firstgeneratedNum = smokePositions.Count;
+                doneGeneratingTime = Time.time;
                 grenadeState = GrenadeState.doneGenerating;
             }
 
             if(grenadeState == GrenadeState.doneGenerating)
             {
-                grenadeState = GrenadeState.used;
-                Destroy(gameObject, 5f);
+                //grenadeState = GrenadeState.used;
+                //CheckCollisions();
+
             }
+
+            //if(grenadeState == GrenadeState.intersected)
+            //{
+            //    if (Time.time > intersectTime)
+            //        grenadeState = GrenadeState.regenerating;
+            //}
+            //
+            //if(grenadeState == GrenadeState.regenerating)
+            //{
+            //        GenerateSmokeVolume();
+            //        FixSmokeVolume();
+            //        Sort(ref smokePositions); // Ordering smokes.
+            //        //if (showBoxes) StartCoroutine("DisplaySmoke", regenerateSmokeTime);
+            //        intersectTime = 0;
+            //    grenadeState = GrenadeState.doneGenerating;
+            //}
 
             if(grenadeState == GrenadeState.used)
             {
                 grenadeState = GrenadeState.inactive;
             }
+
+            if(Time.time > grenadeLifetime + doneGeneratingTime)
+            {
+                Destroy(this);
+            }
+        }
+
+        private void CheckCollisions()
+        {
+            List<Vector3> fixedOverlap = new List<Vector3>();
+            foreach (var position in smokePositions)
+            {
+                if (!Physics.CheckSphere(position, smokeCellSize * 0.15f))
+                    fixedOverlap.Add(position);
+            }
+
+            if (fixedOverlap.Count < firstgeneratedNum)
+            {
+                intersectTime = Time.time;
+                grenadeState = GrenadeState.intersected;
+            }
+
+            smokePositions = fixedOverlap;
+
         }
 
         public void GenerateSmokeVolume()
         {
-            for (float height = smokeCellSize / 2; height <= maxYHeight; height += smokeCellSize * 1.1f)
+            for (float height = -maxYHeight; height <= maxYHeight; height += smokeCellSize * 1.1f)
                 for (float x = -smokeRange; x <= smokeRange; x += smokeCellSize * 1.1f)
                     for (float y = -smokeRange; y <= smokeRange; y += smokeCellSize * 1.1f)
                         if (Vector3.Distance(genPos, genPos + Vector3.forward * x + Vector3.right * y + Vector3.up * height) < smokeRange)
-                            if (!smokePositions.Contains(genPos + Vector3.forward * x + Vector3.right * y + Vector3.up * height) || 
+                            if (!smokePositions.Contains(genPos + Vector3.forward * x + Vector3.right * y + Vector3.up * height) ||
                                 !CheckClose(smokePositions, genPos + Vector3.forward * x + Vector3.right * y + Vector3.up * height, smokeCellSize * 0.75f))
                                 smokePositions.Add(genPos + Vector3.forward * x + Vector3.right * y + Vector3.up * height);
-
         }
 
         void FixSmokeVolume()
@@ -92,7 +138,7 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
             List<Vector3> fixedOverlap = new List<Vector3>();
             foreach(var position in smokePositions)
             {
-                if (!Physics.CheckSphere(position, smokeCellSize * 0.5f))
+                if (!Physics.CheckSphere(position, smokeCellSize * 0.15f))
                     fixedOverlap.Add(position);
             }
             smokePositions = fixedOverlap;
@@ -152,6 +198,7 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
             
             List<int> indices = new();
             int num = 0;
+            distances = new List<float>();
             foreach (var item in list)
             {
                 distances.Add(Vector3.Distance(genPos, item));
@@ -161,8 +208,6 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
             for (int i = 1; i < distances.Count; i++)
             {
                 int j = i;
-                var dist1 = Vector3.Distance(genPos, list[j]);
-                var dist2 = Vector3.Distance(genPos, list[j - 1]);
                 while (j > 0 && distances[j] <= distances[j-1])
                 {
                     var temp = distances[j];
@@ -211,6 +256,8 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
             active,
             generating,
             doneGenerating,
+            intersected,
+            regenerating,
             used
         }
     }
