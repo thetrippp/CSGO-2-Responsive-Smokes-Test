@@ -3,6 +3,9 @@ Replicating all the features of the new Responsive Smokes in CSGO 2.
 
 https://www.youtube.com/watch?v=G-jMCypi4oM
 
+Working on a better and more detailed system that better captures the mechanics of the smoke.
+Will update a link to the reop when i get it up and running.
+
 Features:
 - Generating volume of smoke with small units.
 - Smoke units spawn around objects.
