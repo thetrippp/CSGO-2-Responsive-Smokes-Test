@@ -12,7 +12,7 @@ Features:
 - Smoke disappears if object enters volume, then regenerates(wip).
 
 To add:
-- Smoke does not wrap around objects that are farther than a threshold from the center.
+- Smoke wrapping around objects that are farther than a threshold from the center.
 - Smoke forms non-spherical shapes.
 
 # Smoke Grenade.
