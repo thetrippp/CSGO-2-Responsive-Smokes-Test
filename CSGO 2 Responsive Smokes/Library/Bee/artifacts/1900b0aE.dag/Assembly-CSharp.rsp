@@ -361,6 +361,7 @@
 "Assets/Scripts/PlayerThrow.cs"
 "Assets/Scripts/ResponsiveSmokes.cs"
 "Assets/Scripts/ResponsiveSmokesV2.cs"
+"Assets/Scripts/ResponsiveSmokesV3.cs"
 -langversion:9.0
 
 /deterministic

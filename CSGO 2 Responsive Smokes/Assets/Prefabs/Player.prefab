@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 48197469411332120}
   grenade: {fileID: 8606836010070692600, guid: f36ec36694f0a0748981f775603bfdaf, type: 3}
-  throwSpeed: 5
+  throwSpeed: 10
 --- !u!1 &48197470078306952
 GameObject:
   m_ObjectHideFlags: 0

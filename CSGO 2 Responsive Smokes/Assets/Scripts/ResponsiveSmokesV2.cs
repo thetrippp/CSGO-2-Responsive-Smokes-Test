@@ -70,7 +70,8 @@ namespace WithCode.Projects.CSGO2ResponsiveSmokes
 
             if(grenadeState == GrenadeState.doneGenerating)
             {
-                //grenadeState = GrenadeState.used;
+                grenadeState = GrenadeState.used;
+                Destroy(gameObject, grenadeLifetime);
                 //CheckCollisions();
 
             }

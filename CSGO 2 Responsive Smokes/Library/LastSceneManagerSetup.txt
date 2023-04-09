@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/CSGO 2 Responsive Smokes.unity
+- path: Assets/Scenes/CS 2 Responsive Smokes V2.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

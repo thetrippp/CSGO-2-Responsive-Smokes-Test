@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showSmokeRange: 1
-  showSmokeGrid: 1
-  showBoxes: 0
+  showSmokeGrid: 0
+  showBoxes: 1
   smokeRange: 3
   maxYHeight: 3
   smokeCellSize: 0.4
@@ -139,9 +139,7 @@ MonoBehaviour:
   layerTime: 0.075
   layers: 6
   isAccelerating: 1
-  intersectTime: 0
-  regenerateSmokeTime: 0.35
   cube: {fileID: 8094998226918119814, guid: 8b389dd2787ff654eace9e3d5f47a397, type: 3}
   grenadeState: 0
   doneGeneratingTime: 0
-  grenadeLifetime: 20
+  grenadeLifetime: 10
